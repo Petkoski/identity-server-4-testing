@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityServer4;
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
@@ -9,10 +10,15 @@ namespace IdentityServer
 {
     public static class Config
     {
+        //Add support for the standard 'openid' (subject id) and 'profile' (first name, last name etc..) scopes.
+        //All standard scopes and their corresponding claims can be found in the OpenID Connect specification:
+        //https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims
+
         public static IEnumerable<IdentityResource> Ids =>
             new IdentityResource[]
             { 
-                new IdentityResources.OpenId()
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
             };
 
         public static IEnumerable<ApiResource> Apis =>
@@ -36,6 +42,27 @@ namespace IdentityServer
                         "api1",
                     },
                 },
+                new Client
+                {
+                    ClientId = "jovanmvc",
+                    ClientSecrets = { new Secret("mypass2".Sha256()) },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireConsent = false,
+                    RequirePkce = true,
+
+                    // where to redirect to after login
+                    RedirectUris = { "http://localhost:5002/signin-oidc" },
+
+                    // where to redirect to after logout
+                    PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
+
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    }
+                }
             };
         
     }
