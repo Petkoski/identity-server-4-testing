@@ -60,8 +60,11 @@ namespace IdentityServer
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
-                    }
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "api1", //Add "api1" resource to the allowed scopes list
+                    },
+
+                    AllowOfflineAccess = true, //Enable support for refresh tokens
                 }
             };
         

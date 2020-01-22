@@ -45,6 +45,12 @@ namespace MvcClient
                     options.ResponseType = "code"; //We use the so called "authorization code" flow with PKCE to connect to the OpenID Connect provider.
 
                     options.SaveTokens = true; //To persist the tokens from IdentityServer in the cookie
+                    //Since SaveTokens is enabled, ASP.NET Core will automatically store the resulting access 
+                    //and refresh token in the authentication session
+
+                    //Ask for the additional resources via the scope parameter
+                    options.Scope.Add("api1");
+                    options.Scope.Add("offline_access");
                 });
         }
 
