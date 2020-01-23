@@ -65,7 +65,26 @@ namespace IdentityServer
                     },
 
                     AllowOfflineAccess = true, //Enable support for refresh tokens
-                }
+                },
+                new Client
+                {
+                    ClientId = "jovanjs",
+                    ClientName = "Js Client",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+
+                    RedirectUris =           { "http://localhost:5003/callback.html" },
+                    PostLogoutRedirectUris = { "http://localhost:5003/index.html" },
+                    AllowedCorsOrigins =     { "http://localhost:5003" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "api1",
+                    }
+                },
             };
         
     }
