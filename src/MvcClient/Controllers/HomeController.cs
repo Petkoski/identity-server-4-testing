@@ -20,13 +20,14 @@ namespace MvcClient.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IDiscoveryCache _discoveryCache;
+        //private readonly IDiscoveryCache _discoveryCache;
 
-        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory, IDiscoveryCache discoveryCache)
+        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
+        //public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory, IDiscoveryCache discoveryCache)
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
-            _discoveryCache = discoveryCache;
+            //_discoveryCache = discoveryCache;
         }
 
         public IActionResult Index()
@@ -66,41 +67,41 @@ namespace MvcClient.Controllers
             return View("Json");
         }
 
-        public async Task<IActionResult> RenewTokens()
-        {
-            var disco = await _discoveryCache.GetAsync();
-            if (disco.IsError) throw new Exception(disco.Error);
+        //public async Task<IActionResult> RenewTokens()
+        //{
+        //    var disco = await _discoveryCache.GetAsync();
+        //    if (disco.IsError) throw new Exception(disco.Error);
 
-            var rt = await HttpContext.GetTokenAsync("refresh_token");
-            var tokenClient = _httpClientFactory.CreateClient();
+        //    var rt = await HttpContext.GetTokenAsync("refresh_token");
+        //    var tokenClient = _httpClientFactory.CreateClient();
 
-            var tokenResult = await tokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
-            {
-                Address = disco.TokenEndpoint,
-                ClientId = "jovanmvc",
-                ClientSecret = "mypass2",
-                RefreshToken = rt
-            });
+        //    var tokenResult = await tokenClient.RequestRefreshTokenAsync(new RefreshTokenRequest
+        //    {
+        //        Address = disco.TokenEndpoint,
+        //        ClientId = "jovanmvc",
+        //        ClientSecret = "mypass2",
+        //        RefreshToken = rt
+        //    });
 
-            if (!tokenResult.IsError)
-            {
-                var old_id_token = await HttpContext.GetTokenAsync("id_token");
-                var new_access_token = tokenResult.AccessToken;
-                var new_refresh_token = tokenResult.RefreshToken;
-                var expiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(tokenResult.ExpiresIn);
+        //    if (!tokenResult.IsError)
+        //    {
+        //        var old_id_token = await HttpContext.GetTokenAsync("id_token");
+        //        var new_access_token = tokenResult.AccessToken;
+        //        var new_refresh_token = tokenResult.RefreshToken;
+        //        var expiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(tokenResult.ExpiresIn);
 
-                var info = await HttpContext.AuthenticateAsync("Cookies");
+        //        var info = await HttpContext.AuthenticateAsync("Cookies");
 
-                info.Properties.UpdateTokenValue("refresh_token", new_refresh_token);
-                info.Properties.UpdateTokenValue("access_token", new_access_token);
-                info.Properties.UpdateTokenValue("expires_at", expiresAt.ToString("o", CultureInfo.InvariantCulture));
+        //        info.Properties.UpdateTokenValue("refresh_token", new_refresh_token);
+        //        info.Properties.UpdateTokenValue("access_token", new_access_token);
+        //        info.Properties.UpdateTokenValue("expires_at", expiresAt.ToString("o", CultureInfo.InvariantCulture));
 
-                await HttpContext.SignInAsync("Cookies", info.Principal, info.Properties);
-                return Redirect("~/Home/");
-            }
+        //        await HttpContext.SignInAsync("Cookies", info.Principal, info.Properties);
+        //        return Redirect("~/Home/");
+        //    }
 
-            ViewData["Error"] = tokenResult.Error;
-            return View("Error");
-        }
+        //    ViewData["Error"] = tokenResult.Error;
+        //    return View("Error");
+        //}
     }
 }

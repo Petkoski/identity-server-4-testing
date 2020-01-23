@@ -65,6 +65,7 @@ namespace IdentityServer
                     },
 
                     AllowOfflineAccess = true, //Enable support for refresh tokens (this DOES NOT work for the implicit/client_credentials flow)
+                    AccessTokenLifetime = 2 * 60, //2 mins
                 },
                 new Client
                 {

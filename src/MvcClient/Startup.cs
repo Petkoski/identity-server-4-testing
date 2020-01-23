@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using IdentityModel;
 using System.Net.Http;
 using Clients;
+using MvcClient.AutomaticTokenManagement;
 
 namespace MvcClient
 {
@@ -31,11 +32,11 @@ namespace MvcClient
             services.AddControllersWithViews();
             services.AddHttpClient();
 
-            services.AddSingleton<IDiscoveryCache>(r =>
-            {
-                var factory = r.GetRequiredService<IHttpClientFactory>();
-                return new DiscoveryCache(Constants.AuthorityBaseAddress, () => factory.CreateClient());
-            });
+            //services.AddSingleton<IDiscoveryCache>(r =>
+            //{
+            //    var factory = r.GetRequiredService<IHttpClientFactory>();
+            //    return new DiscoveryCache(Constants.AuthorityBaseAddress, () => factory.CreateClient());
+            //});
 
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
@@ -46,6 +47,7 @@ namespace MvcClient
                     options.DefaultChallengeScheme = "oidc"; //OpenID Connect protocol
                 })
                 .AddCookie("Cookies")
+                .AddAutomaticTokenManagement()
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.Authority = "http://localhost:5000";
