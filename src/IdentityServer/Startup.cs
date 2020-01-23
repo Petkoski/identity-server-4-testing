@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +34,8 @@ namespace IdentityServer
             // uncomment, if you want to add an MVC-based UI
             services.AddControllersWithViews();
 
-            var builder = services.AddIdentityServer()
+            var builder = services
+                .AddIdentityServer()
                 .AddTestUsers(TestUsers.Users)
                 //.AddInMemoryIdentityResources(Config.Ids)
                 //.AddInMemoryApiResources(Config.Apis)
@@ -47,6 +49,22 @@ namespace IdentityServer
                     options.ConfigureDbContext = b => b.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
                 })
                 ;
+
+            services
+                .AddAuthentication()
+                .AddGoogle("Google", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    options.ClientId = "client-id-goes-here";
+                    options.ClientSecret = "client-secret-goes-here";
+                });
+            /**
+             * 1) Register a new project on https://console.developers.google.com/
+             * 2) Enable the Google+ API
+             * 3) 'Credentials' tab: create new 'OAuth client ID'
+             * 4) Configure the redirect URI (of your local IdentityServer + add /signin-google, mine was: http://localhost:5000/signin-google)
+             * 5) Paste 'Client ID' & 'Client secret' here ^.
+             */
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
