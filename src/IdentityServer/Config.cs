@@ -44,8 +44,8 @@ namespace IdentityServer
                 },
                 new Client
                 {
-                    ClientId = "jovanmvc",
-                    ClientSecrets = { new Secret("mypass2".Sha256()) },
+                    ClientId = "jovanmvc", //Unique ID of the client
+                    ClientSecrets = { new Secret("mypass2".Sha256()) }, //List of client secrets - credentials to access the token endpoint.
 
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = false,
@@ -64,7 +64,7 @@ namespace IdentityServer
                         "api1", //Add "api1" resource to the allowed scopes list
                     },
 
-                    AllowOfflineAccess = true, //Enable support for refresh tokens
+                    AllowOfflineAccess = true, //Enable support for refresh tokens (this DOES NOT work for the implicit/client_credentials flow)
                 },
                 new Client
                 {
