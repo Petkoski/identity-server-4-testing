@@ -5,6 +5,7 @@
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -52,12 +53,13 @@ namespace IdentityServer
 
             services
                 .AddAuthentication()
-                .AddGoogle("Google", options =>
+                .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                     options.ClientId = "client-id-goes-here";
                     options.ClientSecret = "client-secret-goes-here";
-                });
+                })
+                ;
             /**
              * 1) Register a new project on https://console.developers.google.com/
              * 2) Enable the Google+ API

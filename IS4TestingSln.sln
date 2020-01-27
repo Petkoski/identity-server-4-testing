@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsClient", "src\JsClient\Js
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constants", "Constants\Constants.csproj", "{CB68AC99-8291-448E-A9AB-85698F134898}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerIdentity", "src\IdentityServerIdentity\IdentityServerIdentity.csproj", "{CD441616-F8C5-4085-B9E3-535A7D4EA824}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,18 @@ Global
 		{CB68AC99-8291-448E-A9AB-85698F134898}.Release|x64.Build.0 = Release|Any CPU
 		{CB68AC99-8291-448E-A9AB-85698F134898}.Release|x86.ActiveCfg = Release|Any CPU
 		{CB68AC99-8291-448E-A9AB-85698F134898}.Release|x86.Build.0 = Release|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Debug|x64.Build.0 = Debug|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Debug|x86.Build.0 = Debug|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Release|x64.ActiveCfg = Release|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Release|x64.Build.0 = Release|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Release|x86.ActiveCfg = Release|Any CPU
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,6 +124,7 @@ Global
 		{61729FE1-D052-4491-882C-FDDCAF21BFE6} = {E8C32A0F-AD21-42DA-AAF7-A838D79C4B25}
 		{917EF242-CB80-4948-9D0E-A2EBA17126E4} = {E8C32A0F-AD21-42DA-AAF7-A838D79C4B25}
 		{CB68AC99-8291-448E-A9AB-85698F134898} = {E8C32A0F-AD21-42DA-AAF7-A838D79C4B25}
+		{CD441616-F8C5-4085-B9E3-535A7D4EA824} = {E8C32A0F-AD21-42DA-AAF7-A838D79C4B25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4BB43500-4AC0-4FAA-8E3A-85ED9E49FEE1}
