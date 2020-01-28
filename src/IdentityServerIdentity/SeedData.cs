@@ -21,8 +21,16 @@ namespace IdentityServerIdentity
          * To seed the db:
          * 1) Navigate to \src\IdentityServerIdentity in console
          * 2) Run: dotnet run /seed
+         * Migrations (./Data/Migrations/"..._CreateIdentitySchema.cs") are built for Sqlite, NOT SqlServer. Check
+         * following method: .Annotation("Sqlite:Autoincrement", true) when AspNetRoleClaims & AspNetUserClaims tables 
+         * are created. This error will appear when seeding:
+         * "Cannot insert the value NULL into column 'id', table 'XXX'; column does not allow nulls."
+         * To fix that:
+         * https://stackoverflow.com/questions/41757016/cannot-insert-the-value-null-into-column-id-table-xxx-column-does-not-allo
+         * Comment: "When looking at your SQL table design, scroll through "Column Properties" to "Identity Specification". 
+         * In that drop-down, change "(Is Identity)" to Yes. This setting tells the table to auto-increment the ID field."
+         * Correct that on both dbo.AspNetRoleClaims & dbo.AspNetUserClaims tables.
          */
-
         public static void EnsureSeedData(string connectionString)
         {
             var services = new ServiceCollection();
