@@ -1,16 +1,16 @@
 ﻿@using Microsoft.AspNetCore.Authentication
 
-<h2>Claims</h2>
-<div class="panel">
-    <a class="btn btn-primary" href="~/Home/GetApiData">Get API Data</a>
+<div class="panel" style="margin-top: 20px; margin-bottom: 20px">
+    <a class="btn btn-dark" href="~/Home/GetApiData">Get API Data</a>
     @*<a class="btn btn-primary" href="~/Home/RenewTokens">Renew Tokens</a>*@
 </div>
 
+<h2>Claims</h2>
 <dl>
     @foreach (var claim in User.Claims)
     {
-        <dt>@claim.Type</dt>
-        <dd>@claim.Value</dd>
+        <dt class="word-wrap">@claim.Type</dt>
+        <dd class="word-wrap">@claim.Value</dd>
     }
 </dl>
 
@@ -18,7 +18,7 @@
 <dl>
     @foreach (var prop in (await Context.AuthenticateAsync()).Properties.Items)
     {
-        <dt>@prop.Key</dt>
-        <dd>@prop.Value</dd>
+        <dt class="word-wrap">@prop.Key</dt>
+        <dd class="word-wrap">@prop.Value</dd>
     }
 </dl>

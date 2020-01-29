@@ -103,5 +103,10 @@ namespace MvcClient.Controllers
         //    ViewData["Error"] = tokenResult.Error;
         //    return View("Error");
         //}
+
+        public IActionResult Logout()
+        {
+            return new SignOutResult(new[] { "Cookies", "oidc" });
+        }
     }
 }
