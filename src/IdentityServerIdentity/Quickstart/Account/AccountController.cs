@@ -341,5 +341,42 @@ namespace IdentityServer4.Quickstart.UI
 
             return vm;
         }
+
+        [HttpGet]
+        public ViewResult Register(string returnUrl)
+        {
+            var vm = new RegisterInputModel
+            {
+                ReturnUrl = returnUrl,
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterInputModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser {
+                    UserName = model.Username,
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, false);
+                    //TODO: Fix issue here
+                    return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            return View();
+        }
     }
 }

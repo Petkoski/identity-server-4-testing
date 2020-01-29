@@ -46,7 +46,7 @@
 
                                 <div class="form-group">
                                     <button class="btn btn-primary" name="button" value="login">Login</button>
-                                    <button class="btn btn-default" name="button" value="cancel">Cancel</button>
+                                    <a href="@(Url.Action("Register"))?ReturnUrl=@Model.ReturnUrl">or click here to register...</a>
                                 </div>
                             </fieldset>
                         </form>
